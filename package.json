@@ -1,0 +1,50 @@
+{
+  "name": "appsingal-job",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "",
+  "author": "Justin Halsall",
+  "main": "./dist/tsc/main.js",
+  "types": "./dist/tsc/main.d.ts",
+  "bin": {
+    "job": "./dist/esbuild/cli.js"
+  },
+  "dependencies": {
+    "@appsignal/javascript": "^1.3.19",
+    "@types/node": "^16.11.1",
+    "esbuild": "^0.13.8",
+    "puppeteer-core": "^10.4.0",
+    "ts-node": "^10.3.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.4",
+    "webdriverio": "^7.16.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb-babel": "^0.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-lodash": "^7.3.0",
+    "eslint-plugin-lodash-fp": "^2.2.0-a1",
+    "jest": "^27.3.0",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7"
+  },
+  "scripts": {
+    "eslint": "yarn run eslint --color --ext .html,.js,.json,.jsx,.md,.ts,.tsx *.* src",
+    "eslint:fix": "yarn run eslint -- --fix",
+    "cli": "NODE_OPTIONS='--unhandled-rejections=strict' ts-node src/cli.ts",
+    "test": "jest",
+    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "build": "tsc -p tsconfig.json --types node",
+    "build-all": "yarn clean && yarn build && yarn esbuild-node",
+    "clean": "rm -rf dist build package",
+    "docs": "typedoc --entryPoints src/main.ts",
+    "esbuild-node": "esbuild src/cli.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/cli.js --external:\"electron/index.js\" --external:\"*.png\"",
+    "esbuild-node:dev": "esbuild src/cli.ts --bundle --sourcemap=external --outfile=dist/esbuild/cli.js --external:\"electron/index.js\" --external:\"*.png\"",
+    "esbuild-node:watch": "esbuild src/cli.ts --bundle --watch --sourcemap=external --outfile=dist/esbuild/cli.js --external:\"electron/index.js\" --external:\"*.png\""
+  }
+}

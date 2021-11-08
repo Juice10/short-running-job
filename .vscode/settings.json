@@ -1,0 +1,11 @@
+{
+  "rubyTestExplorer.testFramework": "none",
+  "jest.jestCommandLine": "yarn test",
+  "cSpell.words": [
+    "appsignal",
+    "esbuild",
+    "outfile",
+    "typedoc",
+    "webdriverio"
+  ]
+}
