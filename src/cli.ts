@@ -10,14 +10,18 @@ const appsignal = new Appsignal({
   // revision: process.env.APP_REVISION,
 });
 
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // process.stdin.resume() // Make AppSignal errors show up in dashboard by never stopping process
 let capture: Capture | undefined;
 (async () => {
   await appsignal
     .wrap(
-      () => {
+      async () => {
         capture = new Capture();
-        capture.go();
+        await capture.go();
       },
       (span) => {
         span.setAction("RecordingInstructor");
@@ -25,9 +29,10 @@ let capture: Capture | undefined;
         span.setTags({ environment: NODE_ENV });
       }
     )
-    .catch((error) => {
+    .catch(async(error) => {
       if (capture) capture.cleanup();
       // console.log(error)
+      await sleep(10000)
       throw error;
     });
 })();
